@@ -33,15 +33,18 @@ def remove_non_strings(array)
   end 
 end
 
-def count_elements(array) 
-  new_arr = []
-  array.count do |word|
-    # word.count do |word|
-      new_arr << word
+def count_elements(array)
+  array.each do |original_hash|
+    original_hash[:count] = 0
+    name = original_hash[:name]
+    array.each do |hash|
+      if hash[:name] == name
+        original_hash[:count] += 1
+      end
+    end
+  end.uniq
+end
 
-end
-new_arr
-end
 
 # def merge_data(key, value)
 # key.each do |name_hash|
@@ -70,6 +73,17 @@ def find_cool(hash)
   new_array
 end
 
-  def organize_schools(hash)
+  def organize_schools(schools)
+    organized_schools = {}
+  schools.each do |name, location_hash|
+    location = location_hash[:location]
+    if organized_schools[location]
+      organized_schools[location] << name
+    else
+      organized_schools[location] = []
+      organized_schools[location] << name
+    end
+  end
+  organized_schools
   end
   
